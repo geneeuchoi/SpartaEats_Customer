@@ -1,19 +1,23 @@
 package like.heocholi.spartaeats.service;
 
 import like.heocholi.spartaeats.constants.ErrorType;
+import like.heocholi.spartaeats.dto.LikedReviewResponseDto;
 import like.heocholi.spartaeats.dto.ReviewAddRequestDto;
 import like.heocholi.spartaeats.dto.ReviewResponseDto;
 import like.heocholi.spartaeats.dto.ReviewUpdateRequestDto;
-import like.heocholi.spartaeats.entity.Customer;
-import like.heocholi.spartaeats.entity.Order;
-import like.heocholi.spartaeats.entity.Review;
-import like.heocholi.spartaeats.entity.Store;
+import like.heocholi.spartaeats.entity.*;
+import like.heocholi.spartaeats.exception.PageException;
+import like.heocholi.spartaeats.exception.PickException;
 import like.heocholi.spartaeats.exception.ReviewException;
 import like.heocholi.spartaeats.repository.OrderRepository;
 import like.heocholi.spartaeats.repository.ReviewRepository;
 import like.heocholi.spartaeats.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -110,5 +114,24 @@ public class ReviewService {
         }
 
         return review;
+    }
+
+    public LikedReviewResponseDto getLikedReviews(Customer customer, Integer page) {
+
+        Pageable pageable = PageRequest.of(page-1, 5, Sort.by("createdAt").descending());
+        Page<Review> reviewPage = reviewRepository.findLikedReview(customer.getId(), pageable);
+        checkValidatePage(page, reviewPage);
+
+        return new LikedReviewResponseDto(page, reviewPage);
+    }
+
+    private static void checkValidatePage(Integer page, Page<Review> reviewPage) {
+        if (reviewPage.getTotalElements() == 0) {
+            throw new ReviewException(ErrorType.NOT_FOUND_LIKED_REVIEW);
+        }
+
+        if (page > reviewPage.getTotalPages() || page < 1) {
+            throw new ReviewException(ErrorType.INVALID_PAGE);
+        }
     }
 }

@@ -101,5 +101,24 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(responseMessage);
     }
 
+    // 좋아요 누른 리뷰 조회
+    @GetMapping("/reviews/liked")
+    public ResponseEntity<ResponseMessage<LikedReviewResponseDto>> getLikedReview(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
+
+        LikedReviewResponseDto reviewList = reviewService.getLikedReviews(userDetails.getCustomer(), page);
+
+        ResponseMessage<LikedReviewResponseDto> responseMessage = ResponseMessage.<LikedReviewResponseDto>builder()
+                .statusCode(HttpStatus.OK.value())
+                .message("좋아요를 누른 모든 리뷰가 조회되었습니다.")
+                .data(reviewList)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseMessage);
+    }
+
+
+
 
 }

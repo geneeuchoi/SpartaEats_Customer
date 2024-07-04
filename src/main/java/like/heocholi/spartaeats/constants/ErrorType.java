@@ -57,7 +57,10 @@ public enum ErrorType {
     NOT_FOUND_STORES(HttpStatus.NOT_FOUND,"음식점이 존재하지 않습니다."),
 
     //pick
-    NOT_FOUND_PICK(HttpStatus.NOT_FOUND,"찜 목록이 존재하지 않습니다.");
+    NOT_FOUND_PICK(HttpStatus.NOT_FOUND,"찜 목록이 존재하지 않습니다."),
+
+    //review
+    NOT_FOUND_LIKED_REVIEW(HttpStatus.NOT_FOUND,"좋아요 한 리뷰가 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
