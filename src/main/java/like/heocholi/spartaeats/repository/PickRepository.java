@@ -7,8 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PickRepository extends JpaRepository<Pick, Long> {
+public interface PickRepository extends JpaRepository<Pick, Long>, PickRepositoryCustom {
     Pick findByStoreAndCustomer(Store store, Customer customer);
 
-    Page<Pick> findAllByCustomerAndIsPickTrue(Customer customer, Pageable pageable);
+    // 내가 좋아하는 댓글(가게) 목록 조회하기
+    // JPA -> QueryDSL로 변경
+    //Page<Pick> findAllByCustomerAndIsPickTrue(Customer customer, Pageable pageable);
 }

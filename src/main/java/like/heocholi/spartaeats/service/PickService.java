@@ -22,9 +22,10 @@ public class PickService {
 
     private final PickRepository pickRepository;
 
+    // 내가 좋아하는 댓글(가게) 목록 조회하기
     public PickPageResponseDto getPickList(Customer customer, Integer page) {
         Pageable pageable = PageRequest.of(page-1, 5);
-        Page<Pick> pickPage = pickRepository.findAllByCustomerAndIsPickTrue(customer, pageable);
+        Page<Pick> pickPage = pickRepository.findAllByCustomerAndIsPickTrue(customer.getId(), pageable);
         checkValidatePage(page, pickPage);
 
         return new PickPageResponseDto(page, pickPage);

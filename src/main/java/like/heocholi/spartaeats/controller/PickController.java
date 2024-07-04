@@ -17,6 +17,7 @@ public class PickController {
 
     private final PickService pickService;
 
+    // 내가 좋아하는 댓글(가게) 목록 조회하기
     @GetMapping
     public ResponseEntity<ResponseMessage<PickPageResponseDto>> getPickList(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
