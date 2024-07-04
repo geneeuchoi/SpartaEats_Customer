@@ -1,10 +1,7 @@
 package like.heocholi.spartaeats.repository;
 
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import like.heocholi.spartaeats.entity.Customer;
 import like.heocholi.spartaeats.entity.Pick;
-import like.heocholi.spartaeats.entity.QCustomer;
 import like.heocholi.spartaeats.entity.QPick;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
