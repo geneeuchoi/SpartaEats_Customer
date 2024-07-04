@@ -77,6 +77,7 @@ public class CustomerController {
 
     
     // 프로필 조회 API
+    // 프로필에 내가 좋아요한 리뷰 수 && 찜하기 한 가게 수 필드 추가
     @GetMapping
     public ResponseEntity<ResponseMessage<CustomerResponseDTO>> getCustomerInfo (@AuthenticationPrincipal UserDetailsImpl userDetails) {
         CustomerResponseDTO responseDTO =  customerService.getCustomerInfo(userDetails.getCustomer());

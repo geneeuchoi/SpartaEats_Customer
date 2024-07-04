@@ -83,7 +83,10 @@ public class CustomerService {
 
     //유저 정보 조회
     public CustomerResponseDTO getCustomerInfo(Customer customer) {
-        return new CustomerResponseDTO(customer);
+        long likedReviewCount = customerRepository.findLikedReviewCount(customer.getId());
+        long pickedStoreCount = customerRepository.findPickedStoreCount(customer.getId());
+
+        return new CustomerResponseDTO(customer, likedReviewCount, pickedStoreCount);
     }
 
 
