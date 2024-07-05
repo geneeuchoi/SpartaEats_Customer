@@ -17,7 +17,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.util.ClassUtils.isPresent;
 
 @ExtendWith(MockitoExtension.class)
 class LikeServiceTest {
@@ -144,5 +143,7 @@ class LikeServiceTest {
 
         assertEquals(ErrorType.INVALID_LIKE, exception.getErrorType());
     }
+
+
 
 }
